@@ -14,6 +14,7 @@ class User {
         this.address = address;
         this.wishList = [];
         this.car = [];
+        this.orders = [];
         this.productsPurchased = [];
     }
 }
@@ -35,14 +36,25 @@ class usersServices {
     }
 
     deleteCount(id){
-        const index = usersDatabase.findIndex(user => user.id === id);
-        const user = usersDatabase.find(user => user.id === id);
+        const index = usersDatabase.findIndex(user => user.id == id);
+        const user = this.findCount(id)
         this.database.pop(index);
         return `User ${user} has been deleted`;
     }
 
-    showCar(){
-        //
+    showCar(id){
+        const user = this.findCount(id);
+        return user.car;
+    }
+
+    showOrders(id){
+        const user = this.findCount(id);
+        return user.orders;
+    }
+
+    showProductsPurchased(id){
+        const user = this.findCount(id);
+        return user.productsPurchased;
     }
 }
 
