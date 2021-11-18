@@ -1,4 +1,4 @@
-const usersDatabase = require("./dataBase");
+const { usersDatabase } = require("./dataBase");
 
 class User {
     constructor({
@@ -7,7 +7,7 @@ class User {
         password,
         address,
     }){
-        this.id;
+        this.id = this.randomId(2);
         this.name = name;
         this.email = email;
         this.password = password;
@@ -16,6 +16,23 @@ class User {
         this.car = [];
         this.orders = [];
         this.productsPurchased = [];
+    }
+
+    randomId(length){
+        const characters = ["a","e","i","o","u"];
+        const numbers = [1,2,3,4,5,6,7,8,9,0];
+        let id = "";
+
+        for (let index = 1; index <= length; index++) {
+            const letterRandom = characters[this.random(0,4)];
+            id = id + letterRandom;
+        }
+        id = id + numbers[this.random(0,9)];
+        return id;
+    }
+    random(min, max){
+        const number = Math.floor((Math.random() * max) + min);
+        return number;
     }
 }
 
@@ -26,7 +43,7 @@ class usersServices {
 
     creatNewUser(data){
         const newUser = new User(data);
-        this.database.push(newUser);
+        usersDatabase.push(newUser);
         return newUser;
     }
 
@@ -44,6 +61,12 @@ class usersServices {
 
     showCar(id){
         const user = this.findCount(id);
+        return user.car;
+    }
+
+    addCar(id,item){
+        const user = this.findCount(id);
+        user.car.push(item);
         return user.car;
     }
 
