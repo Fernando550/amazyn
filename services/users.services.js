@@ -56,7 +56,7 @@ class usersServices {
         const index = usersDatabase.findIndex(user => user.id == id);
         const user = this.findCount(id)
         this.database.pop(index);
-        return `User ${user} has been deleted`;
+        return {message: `User ${user} has been deleted`};
     }
 
     showCar(id){

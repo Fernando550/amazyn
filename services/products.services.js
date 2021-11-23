@@ -1,6 +1,11 @@
 const faker = require("faker");
 const { products }= require("./dataBase");
 
+class Product {
+    constructor(){
+        //
+    }
+}
 class ProductsServices {
     constructor(){
         this.products = products;
@@ -45,7 +50,7 @@ class ProductsServices {
             ...product,
             ...changes
         };
-        return products[index]
+        return products[index];
     }
 }
 
