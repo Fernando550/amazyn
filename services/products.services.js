@@ -12,7 +12,7 @@ class ProductsServices {
         this.generate(50);
     }
 
-    generate(limit){
+    async generate(limit){
         for (let index = 0; index <  limit; index++) {
         products.push({
             id: faker.datatype.uuid(),
@@ -24,26 +24,26 @@ class ProductsServices {
         }
     }
 
-    creatProduct(body){
+    async creatProduct(body){
         products.push(body);
     }
     
-    find(){
+    async find(){
         return products;
     }
 
-    findOne(id){
+    async findOne(id){
         const product =  products.find(item => item.id === id);
         return product;
     }
 
-    delete(id){
+    async delete(id){
         const index = products.findIndex(item => {item.id == id});
         products.splice(index,1);
         return { message: "The product has been deleted with success!" };
     }
 
-    update(id, changes){
+    async update(id, changes){
         const index = products.findIndex(item => {item.id == id});
         const product = products[index];
         products[index] = {
