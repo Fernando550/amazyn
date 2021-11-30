@@ -13,6 +13,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "@hapi/boom": "^9.1.4",
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "faker": "^5.5.3",
