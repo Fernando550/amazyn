@@ -1,3 +1,17 @@
+const mongoose = require("mongoose");
+
+const Schema = mongoose.Schema;
+
+const productSchema = new Schema({
+    id: String,
+    name: String,
+    price: Number,
+    image: String,
+});
+
+
+const modelProducts = mongoose.model("products", productSchema);
+
 const users = [
     {
         id: 1,
@@ -19,28 +33,6 @@ const users = [
     }
 ]
 
-const products = [
-    {
-        "id": "e812f73c-3a89-46ac-b577-e6eec148cb1d",
-        "name": "Ergonomic Fresh Pants",
-        "price": 962,
-        "image": "http://placeimg.com/640/480",
-        "isBlock": false
-    },
-    {
-        "id": "2de2ae90-712e-4b77-8989-fb9ec607db77",
-        "name": "Ergonomic Metal Bike",
-        "price": 129,
-        "image": "http://placeimg.com/640/480",
-        "isBlock": true
-    },
-    {
-        "id": "cf843311-3fcb-4944-ae5a-90922b0cf546",
-        "name": "Refined Soft Chair",
-        "price": 145,
-        "image": "http://placeimg.com/640/480",
-        "isBlock": false
-    },
-]
 
-module.exports = {users, products};
+
+module.exports = {users, modelProducts};
