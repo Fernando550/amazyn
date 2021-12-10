@@ -1,4 +1,4 @@
-const { usersDatabase } = require("./dataBase");
+const { usersDatabase } = require("./modelsDb/productSchema");
 
 class User {
     constructor({

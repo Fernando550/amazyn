@@ -39,17 +39,17 @@ router.patch("/:id", async(req, res) => {
         const updateProduct = await services.update(id, body);
     res.json(updateProduct);
     } catch (error) {
-        //
+        console.log(error);
     }
 })
 
-router.delete("/:id", async(req,res) => {
+router.delete("/", async(req,res) => {
     try {
-        const { id } = req.params;
-        const productDeleted = await services.delete(id);
+        const body = req.body;
+        const productDeleted = await services.delete(body);
         res.json(productDeleted);
     } catch (error) {
-        //
+        console.log(error);
     }
 })
 

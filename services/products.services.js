@@ -1,9 +1,7 @@
 const faker = require("faker");
-const { modelProducts } = require("./dataBase");
+const  ProductSch  = require("./modelsDb/productSchema");
 const boom = require("@hapi/boom");
-const db = require("./connectionDatabase");
 
-// const Schema = db.Schema;
 class ProductsServices {
     constructor(){
         // this.generate(50);
@@ -16,38 +14,38 @@ class ProductsServices {
             name: faker.commerce.productName(),
             price: parseInt(faker.commerce.price(),10),
             image: faker.image.imageUrl(),
-            isBlock: faker.datatype.boolean(),
+            // isBlock: faker.datatype.boolean(),
         })
         }
     }
 
     async creatProduct(body){
-        const newProduct = new modelProducts(body);
+        const newProduct = new ProductSch(body);
         newProduct.save();
         return newProduct;
     }
     
     async find(){
-        const products = await modelProducts.find();
+        const products = await ProductSch.find();
         return products;
     }
 
     async findOne(id){
-        const productFound = await modelProducts.findOne({
+        const productFound = await ProductSch.findOne({
             _id: id
         });
         return productFound;
     }
 
-    async delete(id){
-        const opjDeleted = modelProducts.findOneAndDelete(id);
-        return { message: "The product has been deleted with success!",
-                opjDeleted };
+    async delete(body){
+        await ProductSch.deleteOne(body);
+        return { message: "The product has been deleted with success!"};
     }
 
     async update(id, changes){
-        const opj = await modelProducts.findByIdAndUpdate(id,changes);
-        return opj;
+        const obj = await ProductSch.findByIdAndUpdate(id,changes);
+        const product = await ProductSch.findById(id);
+        return product;
     }
 }
 
