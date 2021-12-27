@@ -7,3 +7,7 @@ const orderSchema = mongoose.Schema({
     datePurchase: Date,
     dateArrive: Date,
 })
+
+const orderModel = mongoose.model("orders",orderSchema);
+
+module.exports = orderModel;

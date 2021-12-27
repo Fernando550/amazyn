@@ -1,25 +1,30 @@
-class Order {
-    constructor(){
-        this.id;
-        this.ordersDatabase = [];
-    }
-}
+const Order = require("./modelsDb/ordersSchema");
 
 class OrderServices{
     constructor(){
-        this.id;
+        // this.id;
     }
-    find(){
-        return this.ordersDatabase
+    async crete(body){  //buy
+        try {
+            const newOrder = await Order.crete(body);
+            return newOrder;
+        } catch (error) {
+            
+        }
+    }
+    async find(){
+        try {
+            const orders = await Order.find();
+            return order;
+        } catch (error) {
+            
+        }
     }
     findOne(id){
         const myOrder = this.ordersDatabase.find(order => order.id == id);
         return myOrder;
     }
-    crete(body){  //buy
-        const order = new Order(body);
-        return order;
-    }
+   
     delete(id){
         const index = this.ordersDatabase.findIndex(order => order.id == id);
         this.ordersDatabase[index]
