@@ -2,9 +2,9 @@ const express = require("express");
 const app =  express();
 const  port = 3000;
 const routerApi = require("./routes/index");
-const db = require("./services/connectionDatabase");
+const db = require("./connectionDatabase");
 
-app.use(express.json());
+app.use(express.json()); 
 
 routerApi(app);
 

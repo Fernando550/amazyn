@@ -1,62 +1,54 @@
-const { usersDatabase } = require("./modelsDb/productSchema");
-
-class User {
-    constructor({
-        name,
-        email,
-        password,
-        address,
-    }){
-        this.id = this.randomId(2);
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.wishList = [];
-        this.car = [];
-        this.orders = [];
-        this.productsPurchased = [];
-    }
-
-    randomId(length){
-        const characters = ["a","e","i","o","u"];
-        const numbers = [1,2,3,4,5,6,7,8,9,0];
-        let id = "";
-
-        for (let index = 1; index <= length; index++) {
-            const letterRandom = characters[this.random(0,4)];
-            id = id + letterRandom;
-        }
-        id = id + numbers[this.random(0,9)];
-        return id;
-    }
-    random(min, max){
-        const number = Math.floor((Math.random() * max) + min);
-        return number;
-    }
-}
+const  User  = require("./modelsDb/userSchema");
 
 class usersServices {
     constructor(){
         // this.database = usersDatabase;
     }
 
-    creatNewUser(data){
-        const newUser = new User(data);
-        usersDatabase.push(newUser);
-        return newUser;
+    async creatNewUser(data){
+        try {
+            const newUser = await User.create(data);
+            return newUser;
+        } catch (error) {
+            return error;
+        }
     }
 
-    findCount(id){
-        const myAccount = usersDatabase.find(use => use.id == id);
-        return myAccount;
+    async find(body){
+        try {
+            const users = await User.find(body);
+            return users;
+        } catch (error) {
+            return error;
+        }
     }
 
-    deleteCount(id){
-        const index = usersDatabase.findIndex(user => user.id == id);
-        const user = this.findCount(id)
-        this.database.pop(index);
-        return {message: `User ${user} has been deleted`};
+    async findCount(id){
+        try {
+            const myAccount = await User.findById(id)
+            return myAccount;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async update(id, changes){
+        try {
+            const userUpdate = await User.findByIdAndUpdate(id,changes);
+            const user = await User.findById(id);
+            return user;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async deleteCount(body){
+        try {
+            await ProductSch.deleteOne(body);
+            return { message: "The product has been deleted with success!"};
+        } catch (error) {
+            return
+        }
     }
 
     showCar(id){

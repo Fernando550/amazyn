@@ -1,13 +1,29 @@
 const express = require("express");
 const router =  express.Router();
-const userServices  = require("../services/users.services")
+const userServices  = require("../services/users.services");
 
 const service = new userServices()
 
-router.get("/:id",(req,res)=> {   //send inf. of user
-    const { id } = req.params;
-    const user = service.findCount(id);
-    res.json(user);
+router.get("/", async (req,res) => {  //get all users
+    try {
+        const body = req.body;
+        const users = await service.find(body);
+        res.json(users);
+    } catch (error) {
+        res.json({
+            message: error,
+        })
+    }
+})
+
+router.get("/:id", async (req,res)=> {   //send inf. of user
+    try {
+        const { id } = req.params;
+        const user = await service.findCount(id);
+        res.json(user);
+    } catch (error) {
+        //
+    }
 })
 
 router.get("/:id/car", (req,res)=> {  //show the car 
@@ -30,21 +46,47 @@ router.get("/:id/purchased", (req, res)=> {
 
 //post
 
-router.post("/newUser", (req, res) => {
-    const body = req.body;
-    const newUser = service.creatNewUser(body);
-    res.json(newUser);
+router.post("/", async(req, res) => {
+    try {
+        const body = req.body;
+        const newUser = await service.creatNewUser(body);
+        res.json(newUser);
+    } catch(error){
+        res.status(400).json(error);
+    }
 })
 
-router.post("/getUser", (req, res) => {
-    //
-})
 
-router.post("/:id/car", (req,res)=> {  //show the car 
+router.post("/:id/car", (req,res)=> {  //add car 
     const { id } = req.params;
     const body = req.body;
     const userCar = service.addCar(id, body);
     res.json(userCar);
+})
+
+
+// update
+router.patch("/:id", async (req, res) => {
+    try {
+        const { id }= req.params;
+        const body = req.body;
+        const userUpdate = await service.update(id,body);
+        res.json(userUpdate);
+    } catch (error) {
+        res.json({
+            message: error
+        });
+    }
+})
+
+router.delete("/", async (req, res) => {
+    try {
+        const body = req.body;
+        const userDeleted = await service.deleteCount(body);
+        res.json(userDeleted);
+    } catch (error) {
+        res.json(error);
+    }
 })
 
 module.exports = router;
