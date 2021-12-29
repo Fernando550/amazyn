@@ -9,7 +9,7 @@ class OrderServices{
             const newOrder = await Order.crete(body);
             return newOrder;
         } catch (error) {
-            
+            return error;
         }
     }
     async find(){
@@ -17,28 +17,34 @@ class OrderServices{
             const orders = await Order.find();
             return order;
         } catch (error) {
-            
+            return error;
         }
     }
-    findOne(id){
-        const myOrder = this.ordersDatabase.find(order => order.id == id);
-        return myOrder;
+    async findOne(id){
+        try {
+            const orders = await Order.find({_id: id});
+            return order;
+        } catch (error) {
+            return error;
+        }
     }
    
-    delete(id){
-        const index = this.ordersDatabase.findIndex(order => order.id == id);
-        this.ordersDatabase[index]
-        this.ordersDatabase.splice(index,1);
-        return this.ordersDatabase[index];
+    async delete(body){
+        try {
+            await Order.deleteOne(body);
+            return { message: "The product has been deleted with success!"};
+        } catch (error) {
+            return error;
+        }
     }
-    update(id,changes){
-        const index = this.ordersDatabase.findIndex(item => {item.id == id});
-        const order = this.ordersDatabase[index];
-        this.ordersDatabase[index] = {
-            ...order,
-            ...changes
-        };
-        return this.ordersDatabase[index];
+    async update(id,changes){
+        try {
+            const orderUpdate = await Order.findByIdAndUpdate(id,changes);
+            const order = await Order.findById(id);
+            return order;
+        } catch (error) {
+            return error;
+        }
     }
 }
 
