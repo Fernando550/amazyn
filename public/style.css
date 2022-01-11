@@ -1,0 +1,44 @@
+:root{
+    --colorText: #000000;
+    --mainColor: linear-gradient(to right,#023e8a,#00b4d8);
+    --colorBack: #fff;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+html {
+    font-size: 62.5%;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    background: var(--mainColor);
+}
+
+.heder-left{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+.heder-left{
+    font-size: 2.2rem;
+    font-family: 'DM Sans', sans-serif;
+}
+header span{
+    margin: 10px;
+}
+.menu-a {
+    width: 25px;
+    height: 25px;
+    background-image: url("./img/icons8-menú-24.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.overlay {
+    display: none;
+}
