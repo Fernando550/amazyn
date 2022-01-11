@@ -22,7 +22,7 @@ class OrderServices{
     }
     async findOne(id){
         try {
-            const orders = await Order.find({_id: id});
+            const order = await Order.find({_id: id});
             return order;
         } catch (error) {
             return error;
@@ -32,7 +32,7 @@ class OrderServices{
     async delete(body){
         try {
             await Order.deleteOne(body);
-            return { message: "The product has been deleted with success!"};
+            return { message: "The Order has been deleted with success!"};
         } catch (error) {
             return error;
         }
