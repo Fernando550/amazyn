@@ -5,7 +5,10 @@ const routerApi = require("./routes/index");
 const db = require("./connectionDatabase");
 const {logErrors, errorHandler,boomErrorHandler} = require("./middlewares/error.handler");
 
+
 app.use(express.json()); 
+
+
 
 routerApi(app);
 

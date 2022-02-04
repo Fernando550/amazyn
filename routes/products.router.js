@@ -3,13 +3,14 @@ const router =  express.Router();
 const ProductServices = require("../services/products.services");
 const services = new ProductServices();
 const boom = require("@hapi/boom");
+const { checkApiKey } = require("../middlewares/auth.handlet");
 
-router.get("/", async(req, res, next) => {  
+router.get("/", checkApiKey,async(req, res, next) => {  
     try {
         const products = await services.find();
         res.json(products);
     } catch (error) {
-        next(error)
+        next(error);
     }
 })
 
