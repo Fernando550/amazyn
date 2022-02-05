@@ -1,4 +1,4 @@
-const Order = require("./modelsDb/ordersSchema");
+const Order = require("../modelsDb/ordersSchema");
 
 class OrderServices{
     constructor(){

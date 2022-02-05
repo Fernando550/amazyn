@@ -1,4 +1,4 @@
-const  User  = require("./modelsDb/userSchema");
+const  User  = require("../modelsDb/userSchema");
 
 class usersServices {
     constructor(){

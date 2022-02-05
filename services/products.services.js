@@ -1,5 +1,5 @@
 const faker = require("faker");
-const  ProductSch  = require("./modelsDb/productSchema");
+const  ProductSch  = require("../modelsDb/productSchema");
 const boom = require("@hapi/boom");
 
 class ProductsServices {
