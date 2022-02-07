@@ -1,14 +1,10 @@
 const bcrypt = require("bcrypt");
 
-const myPassWord = "Mi mama me mima 23";
 
-async function hashPassword() {
-    const hash = await bcrypt.hash(myPassWord, 10); 
-    console.log(hash); 
+async function hashPassword(password) {
+    const hash = await bcrypt.hash(password, 10); 
+    return hash; 
 }
 
 
-
-
-
-hashPassword();
+module.exports = { hashPassword }

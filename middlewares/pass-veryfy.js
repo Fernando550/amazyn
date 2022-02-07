@@ -8,4 +8,4 @@ async function verifyPassword(password) {
     console.log(hash); 
 }
 
-verifyPassword();
+// verifyPassword();

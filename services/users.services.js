@@ -1,5 +1,5 @@
 const  User  = require("../modelsDb/userSchema");
-
+const bcrypt = require("bcrypt");
 class usersServices {
     constructor(){
         // this.database = usersDatabase;
@@ -7,7 +7,13 @@ class usersServices {
 
     async creatNewUser(data){
         try {
-            const newUser = await User.create(data);
+            const hash = await bcrypt.hash(data.password, 10);
+            const newData = {
+                ...data,
+                password: hash,
+            }
+            const newUser = await User.create(newData);
+            delete newUser.password;
             return newUser;
         } catch (error) {
             return error;
