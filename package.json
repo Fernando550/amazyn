@@ -19,6 +19,8 @@
     "express": "^4.17.1",
     "faker": "^5.5.3",
     "joi": "^17.6.0",
-    "mongoose": "^6.0.13"
+    "mongoose": "^6.0.13",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
   }
 }

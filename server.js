@@ -8,7 +8,7 @@ const {logErrors, errorHandler,boomErrorHandler} = require("./middlewares/error.
 
 app.use(express.json()); 
 
-
+require("./utils/index");
 
 routerApi(app);
 

@@ -28,7 +28,6 @@ class OrderServices{
             return error;
         }
     }
-   
     async delete(body){
         try {
             await Order.deleteOne(body);

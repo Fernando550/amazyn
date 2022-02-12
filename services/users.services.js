@@ -29,6 +29,11 @@ class usersServices {
         }
     }
 
+    async finByEmail(email){
+        const user = await User.where("email").equals(email);
+        return user;
+    }
+
     async findCount(id){
         try {
             const myAccount = await User.findById(id)
