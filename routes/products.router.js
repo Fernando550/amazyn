@@ -4,8 +4,10 @@ const ProductServices = require("../services/products.services");
 const services = new ProductServices();
 const boom = require("@hapi/boom");
 const { checkApiKey } = require("../middlewares/auth.handlet");
+const passport = require("passport");
 
-router.get("/", checkApiKey,async(req, res, next) => {  
+router.get("/", checkApiKey,
+async(req, res, next) => {  
     try {
         const products = await services.find();
         res.json(products);
@@ -24,7 +26,8 @@ router.get("/:id", async(req, res, next) => { //
     }
 })
 
-router.post("/", async(req,res, next) => { //
+router.post("/", passport.authenticate("jwt",{session: false}),
+async(req,res, next) => { //
     try {
         const body = req.body;
         const newProduct = await services.creatProduct(body);

@@ -1,15 +1,31 @@
 const express = require("express");
 const router =  express.Router();
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config();
+
+const secret = process.env.Secret;
+
 
 
 router.post("/login", passport.authenticate("local", {session: false}),
-async (req, res) => {
+async (req, res, next) => {
     try {
-        // console.log("login")
-        res.json(req.user);
+        const user = req.user;
+        const  payload = {
+            id: user._id,
+            scope: "costumer",
+        }
+        const token = jwt.sign(payload, secret);
+        console.log(token)
+        res.json({
+            user,
+            token
+        });
+        // res.json(req.user)
     } catch (error) {
-        console.log("login")
+        console.log("login 5 -)")
         next(error);
     }
 })

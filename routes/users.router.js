@@ -1,10 +1,13 @@
 const express = require("express");
 const router =  express.Router();
 const userServices  = require("../services/users.services");
+const passport = require("passport");
 
 const service = new userServices()
 
-router.get("/", async (req,res, next) => {  //get all users
+router.get("/",
+passport.authenticate("jwt",{session: false})
+,async (req,res, next) => {  //get all users
     try {
         const body = req.body;
         const users = await service.find(body);
