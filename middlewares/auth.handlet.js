@@ -1,6 +1,5 @@
 const boom = require("@hapi/boom");
 
-// const { config } = require("./.env")
 require("dotenv").config();
 
 let Api_key = process.env.Api_key
@@ -14,4 +13,15 @@ function checkApiKey(req,res, next){
         next(boom.unauthorized());
     }
 }
-module.exports = {checkApiKey};
+
+function checkRoles(...roles){
+    return (req, res, next) => {
+        const user = req.user;
+        if(roles.includes(user.scope)){
+            next();
+        } else {
+            next(boom.unauthorized);
+        }
+    }
+}
+module.exports = {checkApiKey, checkRoles};

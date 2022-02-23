@@ -5,11 +5,22 @@ const userSchema = new mongoose.Schema({
     email: String,
     address: String,
     password: String,
-    wishList: [],
-    car: [],
-    orders: []
+    role: String,
+    wishList: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "products"
+    }],
+    car: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "products"
+    }],
+    orders: [ {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "orders"
+    }]
 })
 
 const userModel = mongoose.model("users", userSchema);
+
 
 module.exports = userModel;

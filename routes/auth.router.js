@@ -9,13 +9,14 @@ const secret = process.env.Secret;
 
 
 
-router.post("/login", passport.authenticate("local", {session: false}),
+router.post("/login", 
+passport.authenticate("local", {session: false}),
 async (req, res, next) => {
     try {
         const user = req.user;
         const  payload = {
             id: user._id,
-            scope: "costumer",
+            scope: user.role,
         }
         const token = jwt.sign(payload, secret);
         console.log(token)

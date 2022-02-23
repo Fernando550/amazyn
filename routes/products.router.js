@@ -6,7 +6,8 @@ const boom = require("@hapi/boom");
 const { checkApiKey } = require("../middlewares/auth.handlet");
 const passport = require("passport");
 
-router.get("/", checkApiKey,
+router.get("/", 
+passport.authenticate("jwt", {session: false}),
 async(req, res, next) => {  
     try {
         const products = await services.find();
@@ -26,7 +27,8 @@ router.get("/:id", async(req, res, next) => { //
     }
 })
 
-router.post("/", passport.authenticate("jwt",{session: false}),
+router.post("/", 
+passport.authenticate("jwt",{session: false}),
 async(req,res, next) => { //
     try {
         const body = req.body;
@@ -37,7 +39,9 @@ async(req,res, next) => { //
     }
 })
 
-router.patch("/:id", async(req, res, next) => {
+router.patch("/:id", 
+passport.authenticate("local", {session: false}),
+async(req, res, next) => {
     try {
         const { id } = req.params;
         const  body = req.body;
@@ -48,7 +52,9 @@ router.patch("/:id", async(req, res, next) => {
     }
 })
 
-router.delete("/", async(req,res, next) => {
+router.delete("/", 
+passport.authenticate("local", {session: false}),
+async(req,res, next) => {
     try {
         const body = req.body;
         const productDeleted = await services.delete(body);

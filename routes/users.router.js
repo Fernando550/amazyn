@@ -3,10 +3,13 @@ const router =  express.Router();
 const userServices  = require("../services/users.services");
 const passport = require("passport");
 
+const { checkRoles } = require("../middlewares/auth.handlet");
+
 const service = new userServices()
 
-router.get("/",
-passport.authenticate("jwt",{session: false})
+router.get("/", 
+passport.authenticate("jwt",{session: false}),
+checkRoles("Administrator")
 ,async (req,res, next) => {  //get all users
     try {
         const body = req.body;
@@ -17,7 +20,10 @@ passport.authenticate("jwt",{session: false})
     }
 })
 
-router.get("/:id", async (req, res, next)=> {   //send inf. of user
+router.get("/:id", 
+passport.authenticate("jwt",{session: false}),
+checkRoles("Administrator"),
+async (req, res, next)=> {   //send inf. of user
     try {
         const { id } = req.params;
         const user = await service.findCount(id);
@@ -27,20 +33,22 @@ router.get("/:id", async (req, res, next)=> {   //send inf. of user
     }
 })
 
-router.get("/:id/car", (req, res, next)=> {  //show the car 
-    try {
-        const { id } = req.params;
-        const userCar = service.showCar(id);
-        res.json(userCar);
-    } catch (error) {
-        next(error);
-    }
-})
+// router.get("/:id/car", (req, res, next)=> {  //show the car 
+//     try {
+//         const { id } = req.params;
+//         const userCar = service.showCar(id);
+//         res.json(userCar);
+//     } catch (error) {
+//         next(error);
+//     }
+// })
 
-router.get("/:id/order", (req, res, next)=> {
+router.get("/orders",
+passport.authenticate("jwt",{session: false}),
+(req, res, next)=> {
     try {
-        const { id } = req.params;
-        const userOrder = service.showOrders(id);
+        const user = req.user;
+        const userOrder = service.showOrders(user._id);
         res.json(userOrder);
     } catch (error) {
         next(error);
