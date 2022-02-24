@@ -12,8 +12,8 @@ class OrderServices{
             body.client = userData._id;
             const newOrder = await Order.create(body);
             console.log(newOrder)
-            // await user.orders.push(newOrder._id);
-            // const addOrder = await userData.save();
+            userData.orders.push(newOrder._id);
+            await userData.save();
             return newOrder; 
         } catch (error) {
             return error;
