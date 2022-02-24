@@ -14,6 +14,7 @@ class OrderServices{
             console.log(newOrder)
             userData.orders.push(newOrder._id);
             await userData.save();
+            console.log(userData)
             return newOrder; 
         } catch (error) {
             return error;
