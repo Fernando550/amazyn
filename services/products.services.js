@@ -1,5 +1,5 @@
 const faker = require("faker");
-const  ProductSch  = require("./modelsDb/productSchema");
+const  ProductSch  = require("../modelsDb/productSchema");
 const boom = require("@hapi/boom");
 
 class ProductsServices {
@@ -20,9 +20,13 @@ class ProductsServices {
     }
 
     async creatProduct(body){
-        const newProduct = new ProductSch(body);
-        newProduct.save();
+        try {
+            const newProduct = new ProductSch(body);
+            newProduct.save();
         return newProduct;
+        } catch (error) {
+            boom.badData("Your data is bad");
+        }
     }
     
     async find(){
@@ -31,21 +35,33 @@ class ProductsServices {
     }
 
     async findOne(id){
-        const productFound = await ProductSch.findOne({
+        try {
+            const productFound = await ProductSch.findOne({
             _id: id
-        });
+            });
         return productFound;
+        } catch (error) {
+            throw boom.notFound("product not found");
+        }
     }
 
     async delete(body){
-        await ProductSch.deleteOne(body);
-        return { message: "The product has been deleted with success!"};
+        try {
+            await ProductSch.deleteOne(body);
+            return { message: "The product has been deleted with success!"};
+        } catch (error) {
+            boom.notFound("product not found");
+        }
     }
 
     async update(id, changes){
-        const obj = await ProductSch.findByIdAndUpdate(id,changes);
-        const product = await ProductSch.findById(id);
+        try {
+            const obj = await ProductSch.findByIdAndUpdate(id,changes);
+            const product = await ProductSch.findById(id);
         return product;
+        } catch (error) {
+            boom.conflict("There's something wrong");
+        }
     }
 }
 

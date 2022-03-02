@@ -1,5 +1,5 @@
-const  User  = require("./modelsDb/userSchema");
-
+const  User  = require("../modelsDb/userSchema");
+const bcrypt = require("bcrypt");
 class usersServices {
     constructor(){
         // this.database = usersDatabase;
@@ -7,7 +7,13 @@ class usersServices {
 
     async creatNewUser(data){
         try {
-            const newUser = await User.create(data);
+            const hash = await bcrypt.hash(data.password, 10);
+            const newData = {
+                ...data,
+                password: hash,
+            }
+            const newUser = await User.create(newData);
+            delete newUser.password;
             return newUser;
         } catch (error) {
             return error;
@@ -23,6 +29,11 @@ class usersServices {
         }
     }
 
+    async finByEmail(email){
+        const user = await User.where("email").equals(email);
+        return user;
+    }
+
     async findCount(id){
         try {
             const myAccount = await User.findById(id)
@@ -34,7 +45,7 @@ class usersServices {
 
     async update(id, changes){
         try {
-            const userUpdate = await User.findByIdAndUpdate(id,changes);
+            await User.findByIdAndUpdate(id,changes);
             const user = await User.findById(id);
             return user;
         } catch (error) {
@@ -47,7 +58,7 @@ class usersServices {
             await ProductSch.deleteOne(body);
             return { message: "The product has been deleted with success!"};
         } catch (error) {
-            return
+            return error
         }
     }
 

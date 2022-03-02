@@ -1,13 +1,21 @@
-const Order = require("./modelsDb/ordersSchema");
+const Order = require("../modelsDb/ordersSchema");
+const User = require("../modelsDb/userSchema");
 
 class OrderServices{
     constructor(){
-        // this.id;
     }
-    async crete(body){  //buy
+    async create(id,body){  //buy
         try {
-            const newOrder = await Order.crete(body);
-            return newOrder;
+            const userData = await User.findById(id);
+            console.log("My user")
+            console.log(userData)
+            body.client = userData._id;
+            const newOrder = await Order.create(body);
+            console.log(newOrder)
+            userData.orders.push(newOrder._id);
+            await userData.save();
+            console.log(userData)
+            return newOrder; 
         } catch (error) {
             return error;
         }
@@ -28,7 +36,6 @@ class OrderServices{
             return error;
         }
     }
-   
     async delete(body){
         try {
             await Order.deleteOne(body);
