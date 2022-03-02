@@ -7,8 +7,16 @@ const options = {
 }
 
 const JwtStrategy = new Strategy(options, (payload, done)=> {
-    console.log(process.env.Secret)
     return done(null, payload);
 })
 
-module.exports = JwtStrategy;
+// const optionsRecovery = {
+//     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+//     secretOrKey: process.env.RecoverySecret ,
+// }
+
+// const JwtStrategyRecovery = new Strategy(optionsRecovery, (payload, done)=> {
+//     return done(null, payload);
+// })
+
+module.exports = {JwtStrategy};

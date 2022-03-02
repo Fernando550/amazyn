@@ -12,11 +12,5 @@ function singToken(payload, secret) {
 }
 
 const token = singToken(payload, secret);
+console.log(token)
 
-console.log(process.env.Api_key)
-
-if(process.env.Api_key == "945673"){
-    console.log("si");
-} else {
-    console.log("no");
-}

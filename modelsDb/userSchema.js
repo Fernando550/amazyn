@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
     orders: [ {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "orders"
-    }]
+    }],
+    jwtRecovery: String
 })
 
 const userModel = mongoose.model("users", userSchema);

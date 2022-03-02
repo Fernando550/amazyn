@@ -45,7 +45,7 @@ class usersServices {
 
     async update(id, changes){
         try {
-            const userUpdate = await User.findByIdAndUpdate(id,changes);
+            await User.findByIdAndUpdate(id,changes);
             const user = await User.findById(id);
             return user;
         } catch (error) {
@@ -58,7 +58,7 @@ class usersServices {
             await ProductSch.deleteOne(body);
             return { message: "The product has been deleted with success!"};
         } catch (error) {
-            return
+            return error
         }
     }
 

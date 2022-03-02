@@ -67,7 +67,7 @@ router.get("/:id/purchased", (req, res, next)=> {
 
 //post
 
-router.post("/", async(req, res, next) => {
+router.post("/newUser", async(req, res, next) => {
     try {
         const body = req.body;
         const newUser = await service.creatNewUser(body);
