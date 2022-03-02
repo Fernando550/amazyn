@@ -9,7 +9,7 @@ const service = new userServices()
 
 router.get("/", 
 passport.authenticate("jwt",{session: false}),
-checkRoles("Administrator")
+checkRoles("Administrator","Bos")
 ,async (req,res, next) => {  //get all users
     try {
         const body = req.body;
@@ -45,16 +45,6 @@ passport.authenticate("jwt",{session: false}),
     }
 })
 
-router.get("/:id/purchased", (req, res, next)=> {
-    try {
-        const { id } = req.params;
-        const userPurchased = service.showProductsPurchased(id);
-        res.json(userPurchased);
-    } catch (error) {
-        next(error);
-    }
-})
-
 //post
 
 router.post("/newUser", async(req, res, next) => {
@@ -68,11 +58,13 @@ router.post("/newUser", async(req, res, next) => {
 })
 
 
-router.post("/:id/car", (req,res, next)=> {  //add car 
+router.post("/car", 
+passport.authenticate("jwt",{session: false}),
+(req,res, next)=> {  //add car 
     try {
-        const { id } = req.params;
+        const user = req.user;
         const body = req.body;
-        const userCar = service.addCar(id, body);
+        const userCar = service.addCar(user._id, body);
         res.json(userCar);
     } catch (error) {
         next(error);
@@ -81,22 +73,39 @@ router.post("/:id/car", (req,res, next)=> {  //add car
 
 
 // update
-router.patch("/:id", async (req, res, next) => {
+router.patch("/",
+passport.authenticate("jwt",{session: false}), 
+async (req, res, next) => {
     try {
-        const { id }= req.params;
+        const user = req.user;
         const body = req.body;
-        const userUpdate = await service.update(id,body);
+        const userUpdate = await service.update(user._id,body);
         res.json(userUpdate);
     } catch (error) {
         next(error);
     }
 })
 
-router.delete("/", async (req, res, next) => {
+router.delete("/",
+passport.authenticate("jwt",{session: false}),
+checkRoles("Administrator"), 
+async (req, res, next) => {
     try {
         const body = req.body;
         const userDeleted = await service.deleteCount(body);
         res.json(userDeleted);
+    } catch (error) {
+        next(error);
+    }
+})
+
+router.delete("/myCount",
+passport.authenticate("jwt",{session: false}), 
+async (req, res, next) => {
+    try {
+        const user = req.user;
+        const message = await service.deleteCountById(user._id);
+        res.json(message);
     } catch (error) {
         next(error);
     }

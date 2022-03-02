@@ -2,7 +2,6 @@ const  User  = require("../modelsDb/userSchema");
 const bcrypt = require("bcrypt");
 class usersServices {
     constructor(){
-        // this.database = usersDatabase;
     }
 
     async creatNewUser(data){
@@ -45,8 +44,12 @@ class usersServices {
 
     async update(id, changes){
         try {
-            await User.findByIdAndUpdate(id,changes);
             const user = await User.findById(id);
+            user = {
+                ...user,
+                ...changes
+            };
+            user.save();
             return user;
         } catch (error) {
             return error;
@@ -55,22 +58,41 @@ class usersServices {
 
     async deleteCount(body){
         try {
-            await ProductSch.deleteOne(body);
-            return { message: "The product has been deleted with success!"};
+            await User.deleteOne(body);
+            return { message: "User has been deleted with success!"};
         } catch (error) {
             return error
         }
     }
 
-    showCar(id){
-        const user = this.findCount(id);
-        return user.car;
+    async deleteCountById(id){
+        try {
+            const user = await User.findById(id);
+            await User.deleteOne(user);
+            return { message: "User has been deleted with success!"};
+        } catch (error) {
+            return error
+        }
     }
 
-    addCar(id,item){
-        const user = this.findCount(id);
-        user.car.push(item);
-        return user.car;
+    async showCar(id){
+        try {
+            const user = await this.findCount(id);
+            return user.car;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async addCar(id,item){
+        try {
+            const user = await this.findCount(id);
+            user.car.push(item);
+            await user.save();
+            return user.car;
+        } catch (error) {
+            return error;
+        }
     }
 
     showOrders(id){
@@ -78,10 +100,6 @@ class usersServices {
         return user.orders;
     }
 
-    showProductsPurchased(id){
-        const user = this.findCount(id);
-        return user.productsPurchased;
-    }
 }
 
 module.exports = usersServices;
