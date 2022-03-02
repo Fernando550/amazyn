@@ -23,7 +23,7 @@ checkRoles("Administrator")
 router.get("/:id", 
 passport.authenticate("jwt",{session: false}),
 checkRoles("Administrator"),
-async (req, res, next)=> {   //send inf. of user
+async (req, res, next)=> {   
     try {
         const { id } = req.params;
         const user = await service.findCount(id);
@@ -32,16 +32,6 @@ async (req, res, next)=> {   //send inf. of user
         next(error);
     }
 })
-
-// router.get("/:id/car", (req, res, next)=> {  //show the car 
-//     try {
-//         const { id } = req.params;
-//         const userCar = service.showCar(id);
-//         res.json(userCar);
-//     } catch (error) {
-//         next(error);
-//     }
-// })
 
 router.get("/orders",
 passport.authenticate("jwt",{session: false}),

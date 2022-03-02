@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 
-let pass = "polipoli";
+let pass = "secret";
 
 async function hashPassword(password) {
     const hash = await bcrypt.hash(password, 10); 
@@ -8,6 +8,3 @@ async function hashPassword(password) {
 }
 
 hashPassword(pass)
-// console.log(awaithashPassword(pass))
-
-// module.exports = { hashPassword }

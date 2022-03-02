@@ -76,30 +76,24 @@ class AuthService {
         };
         user[0].jwtRecovery = token;
         await user[0].save()
-        const adduser = await UserS.findCount(user[0]._id)
-        console.log(adduser);
+        const addUser = await UserS.findCount(user[0]._id)
         const message = await this.sendEmail(mail);
-        return token;
+        return {message: "Token sended", token};
     }
 
     async changePassword(token, newPassword){
         try {
             const payload = jwt.verify(token,recoverySecret);
             const user = await UserS.findCount(payload.sub);
-            console.log(newPassword)
             const hash = await bcrypt.hash(newPassword, 10);
-            console.log(user)
             if(user.jwtRecovery !== token){
                 throw boom.unauthorized();
             }
             user.password = hash;
             user.jwtRecovery = null
             user.save();
-            console.log(user);
             return {message: "password changed"}
         } catch (error) {
-            console.log("error message: ")
-            console.log(error.message)
             throw boom.unauthorized();
         }
     }

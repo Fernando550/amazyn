@@ -29,7 +29,7 @@ router.get("/:id", async(req, res, next) => { //
 
 router.post("/", 
 passport.authenticate("jwt",{session: false}),
-async(req,res, next) => { //
+async(req,res, next) => { 
     try {
         const body = req.body;
         const newProduct = await services.creatProduct(body);

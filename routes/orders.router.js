@@ -22,17 +22,11 @@ router.post("/buy",
 passport.authenticate("jwt",{session: false}),
 async (req,res) => {
     const user = req.user;
-    console.log("Id user:")
-    console.log(user.id)
     const body = req.body;
     const newOrder = await services.create(user.id,body);
     res.json(newOrder);
 });
-//61a81cb45f2455295bdc5735 
-//6215336cdb7ed12ac39153c0 f
-//621536b1a65e2079b5a25023 a
 
-//'620a8262789d27bb6b9b73c6' w, 
 router.patch("/updateOrder/:id", (req, res)=> {
     const { id } = req.params;
     const body = req.body;

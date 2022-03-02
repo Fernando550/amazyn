@@ -6,7 +6,6 @@ const AuthService  = require("../services/auth.service");
 const Auth = new AuthService();
 require("dotenv").config();
 
-const secret = process.env.Secret;
 
 
 
@@ -40,7 +39,6 @@ router.post("/change-password",
 async (req, res ,next)=> {
     try {
         const { token, newPassword } = req.body;
-        console.log("go error")
         const rta = await Auth.changePassword(token, newPassword);
         res.json(rta);
     } catch (error) {
