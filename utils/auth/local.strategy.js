@@ -8,9 +8,9 @@ const LocalStrategy = new Strategy({
     usernameField: "email",
     passwordField: "password"
 },
-async (email, password, done)=>{
+async (email, password, done )=>{
     try {
-        const user = await Service.getUser(email, password);
+        const user = await Service.getUser(email, password,done);
         done(null, user);
     } catch (error) {
         done(error, false);

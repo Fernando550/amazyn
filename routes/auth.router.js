@@ -1,13 +1,25 @@
 const express = require("express");
 const router =  express.Router();
 const passport = require("passport");
-
+const  boom = require("@hapi/boom");
 const AuthService  = require("../services/auth.service");
+const UserService  = require("../services/users.services");
+
 const Auth = new AuthService();
+const Users = new UserService();
 require("dotenv").config();
 
 
 
+router.post("/Sing-in",async (req,res,next)=> {
+    try {
+        const body = req.body;
+        const newUser = await Users.creatNewUser(body);
+        res.json(newUser);
+    } catch (error) {
+        next(boom.badData());
+    }
+})
 
 router.post("/login", 
 passport.authenticate("local", {session: false}),

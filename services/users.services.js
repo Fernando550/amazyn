@@ -95,9 +95,13 @@ class usersServices {
         }
     }
 
-    showOrders(id){
-        const user = this.findCount(id);
-        return user.orders;
+    async showOrders(id){
+        try {
+            const user = await this.findCount(id);
+            return user.orders;
+        } catch (error) {
+            return error;
+        }
     }
 
 }

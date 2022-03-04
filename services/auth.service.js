@@ -30,7 +30,7 @@ class AuthService {
             }
     }
 
-    async getUser(email, password){
+    async getUser(email, password,done){
         const user = await UserS.finByEmail(email);
         if(!user[0]){
             done(boom.unauthorized(), false);

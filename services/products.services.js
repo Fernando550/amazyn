@@ -2,11 +2,8 @@ const faker = require("faker");
 const  ProductSch  = require("../modelsDb/productSchema");
 const boom = require("@hapi/boom");
 
-class ProductsServices {
-    constructor(){
-        // this.generate(50);
-    }
 
+class ProductsServices {
     async generate(limit){
         for (let index = 0; index <  limit; index++) {
         products.push({
@@ -30,8 +27,12 @@ class ProductsServices {
     }
     
     async find(){
-        const products = await ProductSch.find();
-        return products;
+        try {
+            const products = await ProductSch.find();
+            return products;
+        } catch (error) {
+            return error;
+        }
     }
 
     async findOne(id){
@@ -56,8 +57,8 @@ class ProductsServices {
 
     async update(id, changes){
         try {
-            const obj = await ProductSch.findByIdAndUpdate(id,changes);
             const product = await ProductSch.findById(id);
+            
         return product;
         } catch (error) {
             boom.conflict("There's something wrong");

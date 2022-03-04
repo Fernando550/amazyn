@@ -5,6 +5,8 @@ const services = new ProductServices();
 const boom = require("@hapi/boom");
 const { checkApiKey } = require("../middlewares/auth.handlet");
 const passport = require("passport");
+const { checkRoles } = require("../middlewares/auth.handlet");
+
 
 router.get("/", 
 passport.authenticate("jwt", {session: false}),
@@ -17,7 +19,9 @@ async(req, res, next) => {
     }
 })
 
-router.get("/:id", async(req, res, next) => { //
+router.get("/:id",
+passport.authenticate("jwt", {session: false}), 
+async(req, res, next) => { //
     try {
         const { id } = req.params
         const product = await services.findOne(id);
@@ -29,6 +33,7 @@ router.get("/:id", async(req, res, next) => { //
 
 router.post("/", 
 passport.authenticate("jwt",{session: false}),
+checkRoles("Seller"),
 async(req,res, next) => { 
     try {
         const body = req.body;
@@ -41,6 +46,7 @@ async(req,res, next) => {
 
 router.patch("/:id", 
 passport.authenticate("local", {session: false}),
+checkRoles("Seller"),
 async(req, res, next) => {
     try {
         const { id } = req.params;
