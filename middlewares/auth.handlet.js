@@ -20,7 +20,7 @@ function checkRoles(...roles){
         if(roles.includes(user.scope)){
             next();
         } else {
-            next(boom.unauthorized);
+            next(boom.unauthorized());
         }
     }
 }

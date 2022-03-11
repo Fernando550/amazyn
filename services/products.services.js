@@ -46,10 +46,11 @@ class ProductsServices {
         }
     }
 
-    async delete(body){
+    async delete(id){
         try {
-            await ProductSch.deleteOne(body);
-            return { message: "The product has been deleted with success!"};
+            const product = await ProductSch.findById(id);
+            await ProductSch.deleteOne(product);
+            return { message: `The product ${product._id} has been deleted with success!`};
         } catch (error) {
             boom.notFound("product not found");
         }
@@ -58,7 +59,11 @@ class ProductsServices {
     async update(id, changes){
         try {
             const product = await ProductSch.findById(id);
-            
+            product = {
+                ...product,
+                ...changes
+            }
+            await product.save();
         return product;
         } catch (error) {
             boom.conflict("There's something wrong");

@@ -12,7 +12,10 @@ const orderSchema = new mongoose.Schema({
     cost: Number,
     datePurchase: Date,
     dateArrive: Date,
-    delivered: Boolean
+    delivered: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const orderModel = mongoose.model("orders",orderSchema);

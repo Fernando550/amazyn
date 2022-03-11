@@ -6,6 +6,7 @@ const boom = require("@hapi/boom");
 const { checkApiKey } = require("../middlewares/auth.handlet");
 const passport = require("passport");
 const { checkRoles } = require("../middlewares/auth.handlet");
+const { id_ID } = require("faker/lib/locales");
 
 
 router.get("/", 
@@ -31,7 +32,7 @@ async(req, res, next) => { //
     }
 })
 
-router.post("/", 
+router.post("/sellProduct", 
 passport.authenticate("jwt",{session: false}),
 checkRoles("Seller"),
 async(req,res, next) => { 
@@ -58,12 +59,13 @@ async(req, res, next) => {
     }
 })
 
-router.delete("/", 
+router.delete("/:id", 
 passport.authenticate("local", {session: false}),
+checkRoles("Seller"),
 async(req,res, next) => {
     try {
-        const body = req.body;
-        const productDeleted = await services.delete(body);
+        const { id } = req.params.id;
+        const productDeleted = await services.delete(id);
         res.json(productDeleted);
     } catch (error) {
         next(error);
