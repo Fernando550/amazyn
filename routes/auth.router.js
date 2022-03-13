@@ -9,7 +9,11 @@ const Auth = new AuthService();
 const Users = new UserService();
 require("dotenv").config();
 
+router.get("/login",(req,res)=>{
+    res.sendFile("login.html", {root: `C:/Users/fer26/amazyn/public`});
+    // res.json({message: "YES"});
 
+})
 
 router.post("/Sing-in",async (req,res,next)=> {
     try {
@@ -27,6 +31,7 @@ async (req, res, next) => {
     try {
         const user = req.user;
         const token = await Auth.signToken(user._id);
+        console.log(user)
         res.json({
             user,
             token
