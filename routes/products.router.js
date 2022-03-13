@@ -13,6 +13,7 @@ router.get("/",
 passport.authenticate("jwt", {session: false}),
 async(req, res, next) => {  
     try {
+        console.log(req.isAuthenticated())
         const products = await services.find();
         res.json(products);
     } catch (error) {
