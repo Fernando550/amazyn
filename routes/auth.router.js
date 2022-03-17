@@ -4,17 +4,14 @@ const passport = require("passport");
 const  boom = require("@hapi/boom");
 const AuthService  = require("../services/auth.service");
 const UserService  = require("../services/users.services");
+const {checkAuthenticated,checkRedirectHome} = require("../middlewares/redirect");
 
 const Auth = new AuthService();
 const Users = new UserService();
 require("dotenv").config();
 
-router.get("/login",(req,res)=>{
-    res.sendFile("login.html", {root: `C:/Users/fer26/amazyn/public`});
-})
-router.get("/register",(req,res)=>{
-    res.sendFile("register.html", {root: `C:/Users/fer26/amazyn/public`});
-})
+
+
 router.post("/Sing-in",async (req,res,next)=> {
     try {
         const body = req.body;
@@ -31,11 +28,8 @@ async (req, res, next) => {
     try {
         const user = req.user;
         const token = await Auth.signToken(user._id);
-        console.log(user)
-        res.json({
-            user,
-            token
-        });
+        res.cookie("token", token)
+        res.render("index");
     } catch (error) {
         next(error);
     }
