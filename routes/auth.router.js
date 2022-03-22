@@ -29,7 +29,7 @@ async (req, res, next) => {
         const user = req.user;
         const token = await Auth.signToken(user._id);
         res.cookie("token", token)
-        res.render("index");
+        res.redirect("/amazyn/home");
     } catch (error) {
         next(error);
     }
