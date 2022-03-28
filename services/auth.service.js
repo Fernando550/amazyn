@@ -33,11 +33,11 @@ class AuthService {
     async getUser(email, password,done){
         const user = await UserS.finByEmail(email);
         if(!user[0]){
-            done(boom.unauthorized(), false);
+            done(boom.unauthorized(), false,{message: "Email or password not valid"});
         }
         const isMatch = await bcrypt.compare(password, user[0].password);
         if (!isMatch){
-            done(boom.unauthorized(), false);
+            done(boom.notAcceptable(), false,{message: "Email or password not valid"});
         }
         return user[0];
     }

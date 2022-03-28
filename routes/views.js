@@ -4,7 +4,7 @@ const router = express.Router()
 const products = [{name: "car"},{name: "T-short"},{name: "Wache"},{name: "T-short red"}]
 
 router.get("/login",(req,res)=>{
-    res.render("login",{styles: "styles/login.css"});
+    res.render("login",{message: ""});
 })
 
 router.get("/register",(req,res)=>{

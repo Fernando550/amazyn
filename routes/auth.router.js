@@ -23,12 +23,14 @@ router.post("/Sing-in",async (req,res,next)=> {
 })
 
 router.post("/login", 
-passport.authenticate("local", {session: false}),
+passport.authenticate("local", {
+    session: false,
+}),
 async (req, res, next) => {
     try {
         const user = req.user;
         const token = await Auth.signToken(user._id);
-        res.cookie("token", token)
+        res.cookie("token", token);
         res.redirect("/amazyn/home");
     } catch (error) {
         next(error);

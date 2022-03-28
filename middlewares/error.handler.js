@@ -15,12 +15,21 @@ function errorHandler(err,req,res,next){
 function boomErrorHandler(err,req,res,next){
     if(err.isBoom){
         const { output } = err;
-        res.status(output.statusCode).json(output.payload);
+        res.status(output.statusCode);
     }
     next(err);
 }
 
+function viewErrorLog(err,req,res,next) {
+    const {payload} = err.output;
+    if(payload.message == "Not Acceptable"){
+        console.log("not acceptable")
+        console.log(err)
+        res.render("login",{message: "password or email incorrect"});
+    }
+    console.log(err)
+    next();
+}
 
 
-
-module.exports = {logErrors, errorHandler, boomErrorHandler};
+module.exports = {logErrors, errorHandler, boomErrorHandler,viewErrorLog};

@@ -3,7 +3,7 @@ const app =  express();
 const  port = 3000;
 const routerApi = require("./routes/index");
 const db = require("./connectionDatabase");
-const {logErrors, errorHandler,boomErrorHandler} = require("./middlewares/error.handler");
+const {logErrors, errorHandler,boomErrorHandler,viewErrorLog} = require("./middlewares/error.handler");
 const cors = require("cors");
 const expressLayouts = require("express-ejs-layouts");
 
@@ -26,7 +26,7 @@ require("./utils/index");
 routerApi(app);
 
 // app.use()
-
+app.use(viewErrorLog);
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
