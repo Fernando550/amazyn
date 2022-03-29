@@ -69,6 +69,34 @@ class ProductsServices {
             boom.conflict("There's something wrong");
         }
     }
+    randomNumber(min,max){
+        const random = Math.floor(Math.random() * (max - min + 1) + min);
+        return random;
+    }
+    arrayRandom(){
+        let positions = [];
+        while(positions.length <= 12){
+            const position = this.randomNumber(0,11)
+            if (!positions.includes(position)) {
+                positions.push(position);
+            }
+        }
+        return positions;
+    }
+    async showProducts(){
+            const products = await ProductSch.find();
+            let positions = this.arrayRandom();
+            let positionA = 0;
+            let productsToShow = [];
+
+            for (let i = 0; i < 3; i++) {
+                for(let e = 0; e < 4; e++){
+                    productsToShow[i][e].push(products[positions[positionA]])
+                    positionA++;
+                }
+            }
+            return productsToShow;
+    }
 }
 
 module.exports = ProductsServices;

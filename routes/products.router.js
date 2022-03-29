@@ -17,6 +17,7 @@ async(req, res, next) => {
         const products = await services.find();
         res.json(products);
     } catch (error) {
+        console.log("error")
         next(error);
     }
 })
@@ -33,9 +34,8 @@ async(req, res, next) => { //
     }
 })
 
-router.post("/sellProduct", 
+router.post("/", 
 passport.authenticate("jwt",{session: false}),
-checkRoles("Seller"),
 async(req,res, next) => { 
     try {
         const body = req.body;

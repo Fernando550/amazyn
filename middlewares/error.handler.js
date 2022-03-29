@@ -21,12 +21,15 @@ function boomErrorHandler(err,req,res,next){
 }
 
 function viewErrorLog(err,req,res,next) {
-    const {payload} = err.output;
-    if(payload.message == "Not Acceptable"){
-        console.log("not acceptable")
-        console.log(err)
-        res.render("login",{message: "password or email incorrect"});
+    if(err.isBoom){
+        const {payload} = err.output;
+        if(payload.message == "Not Acceptable"){
+            console.log("not acceptable")
+            console.log(err)
+            res.render("login",{message: "Email or Password incorrect"});
+        }
     }
+    console.log("nose")
     console.log(err)
     next();
 }
