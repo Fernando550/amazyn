@@ -21,27 +21,7 @@
         <div></div>
     </header>
     <div class="line"></div>
-    <main>
-        <section>
-            <% if (products.length > 0){ %> 
-                <% products.forEach(product => { %> 
-                    <div class="div-product">
-                        <img src=<%- product.img %>  alt="">
-                        <h1><%=product.name %> </h1>
-                        <p><%-`${product.price}$` %> </p>
-                    </div>
-                    <% }) %> 
-                <% } else {%> 
-                    <p>There are not products...</p>
-                    <% } %> 
-        </section>
-        <section>
-            
-        </section>
-        <section>
-            
-        </section>
-    </main>
+    <%-include("./main.ejs") %> 
     <footer>
         <div>
             <a href="">back to top</a>

@@ -1,7 +1,9 @@
 const express = require("express");
-const router = express.Router()
+const router = express.Router();
+const ProService = require("../services/products.services");
+const productsContain = new ProService();
 
-const products = [
+const productsV1 = [
     {
         name: "car",
         price: 23,
@@ -31,11 +33,11 @@ router.get("/register",(req,res)=>{
     res.render("register");
 })
 
-router.get("/home",(req,res)=>{
+router.get("/home",async (req,res)=>{
     res.render("index",{
         address: "your address",
         Number_products: 0,
-        products
+        allProducts : await productsContain.showProducts()
     });
 })
 

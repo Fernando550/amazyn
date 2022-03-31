@@ -1,0 +1,20 @@
+
+<main> 
+    <% let counter = 0 %> 
+    <% if (allProducts.length > 0){ %> 
+        <% for (let section = 0; section < 3; section++) { %>
+            <section>
+                <% for(let div = 0; div < 4; div++){ %> 
+                    <div class="div-product">
+                        <img src=<%= allProducts[counter].img %>  alt="">
+                        <h1><%= allProducts[counter].name %> </h1>
+                        <p><%-`${allProducts[counter].price}$` %> </p>
+                    </div>
+                    <% counter += 1 %> 
+                    <% } %> 
+            </section>
+            <% } %> 
+        <% } else {%> 
+            <p>There are not products...</p>
+            <% } %> 
+</main>

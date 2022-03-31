@@ -22,6 +22,17 @@ async(req, res, next) => {
     }
 })
 
+router.get("/array", 
+async(req, res, next) => {  
+    try {
+        const products = await services.showProducts();
+        res.json(products);
+    } catch (error) {
+        console.log("error 4")
+        next(error);
+    }
+})
+
 router.get("/:id",
 passport.authenticate("jwt", {session: false}), 
 async(req, res, next) => { //
