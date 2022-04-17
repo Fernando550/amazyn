@@ -34,6 +34,8 @@ router.get("/register",(req,res)=>{
 })
 
 router.get("/home",async (req,res)=>{
+    const user = req.headers.cookie;
+    console.log(user)
     res.render("index",{
         address: "your address",
         Number_products: 0,

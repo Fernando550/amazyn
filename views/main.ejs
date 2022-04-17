@@ -1,9 +1,10 @@
 
-<main> 
+<main>
+ 
     <% let counter = 0 %> 
     <% if (allProducts.length > 0){ %> 
         <% for (let section = 0; section < 3; section++) { %>
-            <section>
+            <section class="section-products">
                 <% for(let div = 0; div < 4; div++){ %> 
                     <div class="div-product">
                         <img src=<%= allProducts[counter].img %>  alt="">

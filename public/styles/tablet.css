@@ -1,0 +1,33 @@
+header{
+    height: 260px;
+}
+
+header section{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "header1 header2"
+    "footer footer";
+    grid-auto-rows: 104px;
+}
+div.title{
+    justify-content: center;
+}
+.item-one{
+    grid-area: header1;
+    font-family: 3rem;
+}
+.item-one h1{
+    font-size: 5rem;
+}
+.item-two{
+    grid-area: footer;
+    padding: 0px 15px;
+}
+.item-three{
+    grid-area: header2;
+    padding: 10px;
+    align-self: center;
+}
+.item-three ul {
+    justify-content: space-between;
+}

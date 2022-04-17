@@ -1,26 +1,8 @@
 <link rel="stylesheet" href="/styles/style.css">
+<link rel="stylesheet" href="/styles/tablet.css" media="(max-width: 900px)">
 <body>
-    <header>
-        <nav>
-            <div class="title">
-                <h1>Amazyn</h1>
-                <p><%- address %> </p>
-            </div>
-            <div class="searcher">
-                    <input type="text" placeholder="Search" class="searcher-input">
-                    <a href=""class="search-icon"></a>
-            </div>
-            <div class="user-contain">
-                <ul>
-                    <span class="number-cart"><%=Number_products%></span>
-                    <a  href="" class="cart"></a>
-                    <a href="" class="user"></a>
-                </ul>
-            </div>
-        </nav>
-        <div></div>
-    </header>
-    <div class="line"></div>
+    <%- include("./header.ejs") %> 
+    
     <%-include("./main.ejs") %> 
     <footer>
         <div>
@@ -30,5 +12,6 @@
             <!--  -->
         </section>
     </footer>
-    <script src="./js/index.js" type="modules"></script>
+    <script src="http://localhost:3000/public/js/index.js" type="modules">
+    </script>
 </body>
